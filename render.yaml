@@ -1,0 +1,39 @@
+services:
+  - type: web
+    name: inventory-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: POSTGRES_USER
+        fromDatabase:
+          name: inventory-db
+          property: user
+      - key: POSTGRES_PASSWORD
+        fromDatabase:
+          name: inventory-db
+          property: password
+      - key: POSTGRES_DB
+        fromDatabase:
+          name: inventory-db
+          property: database
+      - key: POSTGRES_HOST
+        fromDatabase:
+          name: inventory-db
+          property: host
+      - key: POSTGRES_PORT
+        fromDatabase:
+          name: inventory-db
+          property: port
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: DEBUG
+        value: "false"
+
+databases:
+  - name: inventory-db
+    plan: free
+    region: oregon
