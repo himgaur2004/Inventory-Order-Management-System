@@ -31,6 +31,7 @@ jobs:
         # config.py reads POSTGRES_* vars at import time, so we must provide dummy
         # values to prevent a validation error even though they are never used.
         env:
+          PYTHONPATH: .
           POSTGRES_USER: ci_user
           POSTGRES_PASSWORD: ci_pass
           POSTGRES_DB: ci_db
